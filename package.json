@@ -1,0 +1,28 @@
+{
+  "name": "country-quiz",
+  "version": "1.0.0",
+  "description": "Challenge: Create a country quiz app using an API, and use React to handle the frontend. Don’t look at the existing solution. Fulfill user stories below:",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fodilahy-mena/country-quiz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fodilahy-mena/country-quiz/issues"
+  },
+  "browserslist": [
+    "last 1 chrome version"
+  ],
+  "homepage": "https://github.com/Fodilahy-mena/country-quiz#readme"
+}
