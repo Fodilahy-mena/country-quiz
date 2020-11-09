@@ -33878,21 +33878,24 @@ function App() {
     fetch(API_URL).then(data => data.json()).then(countries => setCountries(countries)).then(getRandomCountry);
   };
 
-  const getRandomCountry = () => {// const random = countries[Math.floor(Math.random() * countries.length)];
-    // console.log(random);
-    // let randomOptions = [random.name];
-    // while(randomOptions.length < 4 ){ 
-    //     const randomOpt = this.state.countries[Math.floor(Math.random()*this.state.countries.length)];
-    //     if (!randomOptions.includes(randomOpt.name)) { 
-    //         randomOptions.push(randomOpt.name);
-    //     }
-    // }
-  }; // useEffect(() => {
+  const getRandomCountry = () => {
+    const random = countries[Math.floor(Math.random() * countries.length)];
+    console.log(random.name);
+    let randomOptions = [random.name];
+
+    while (randomOptions.length < 4) {
+      const randomOpt = countries[Math.floor(Math.random() * countries.length)];
+
+      if (!randomOptions.includes(randomOpt.name)) {
+        randomOptions.push(randomOpt.name);
+      }
+    }
+  };
+
+  getData(); // useEffect(() => {
   //     getData()
   // }, [])
 
-
-  getData();
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Country quiz"));
 }
 
@@ -33940,7 +33943,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52267" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52436" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -16,20 +16,21 @@ function App() {
     }
     
     const getRandomCountry = () => {
-        // const random = countries[Math.floor(Math.random() * countries.length)];
-        // console.log(random);
-        // let randomOptions = [random.name];
-        // while(randomOptions.length < 4 ){ 
-        //     const randomOpt = this.state.countries[Math.floor(Math.random()*this.state.countries.length)];
-        //     if (!randomOptions.includes(randomOpt.name)) { 
-        //         randomOptions.push(randomOpt.name);
-        //     }
-        // }
+        const random = countries[Math.floor(Math.random() * countries.length)];
+        console.log(random.name);
+        let randomOptions = [random.name];
+        while(randomOptions.length < 4 ){ 
+            const randomOpt = countries[Math.floor(Math.random() * countries.length)];
+            if (!randomOptions.includes(randomOpt.name)) { 
+                randomOptions.push(randomOpt.name);
+            }
     }
+    }
+    getData()
     // useEffect(() => {
     //     getData()
     // }, [])
-    getData()
+    
     return (
         <>
             <h1>Country quiz</h1>
