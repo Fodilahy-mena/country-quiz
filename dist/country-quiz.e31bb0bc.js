@@ -33870,33 +33870,81 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const API_URL = 'https://restcountries.eu/rest/v2/all';
 
 function App() {
-  const [countries, setCountries] = (0, _react.useState)([]);
+  const [countries, setCountries] = (0, _react.useState)({});
   const [randomCountry, setRandomCountry] = (0, _react.useState)({});
   const [randomOptions, setRandomOptions] = (0, _react.useState)([]);
+  const [userWin, setUserWin] = (0, _react.useState)('');
+  const [goodAnswer, setGoodAnswer] = (0, _react.useState)(0);
 
-  const getData = () => {
-    fetch(API_URL).then(data => data.json()).then(countries => setCountries(countries)).then(getRandomCountry);
-  };
+  function getData() {
+    fetch(API_URL).then(data => data.json()).then(countries => {
+      setCountries(countries);
+    });
+  }
 
-  const getRandomCountry = () => {
-    const random = countries[Math.floor(Math.random() * countries.length)];
-    console.log(random.name);
-    let randomOptions = [random.name];
+  (0, _react.useEffect)(() => {
+    getData();
+  }, []);
+  (0, _react.useEffect)(() => {
+    getRandomCountry();
+  }, [countries]); // console.log(randomCountry)
 
-    while (randomOptions.length < 4) {
-      const randomOpt = countries[Math.floor(Math.random() * countries.length)];
+  function getRandomCountry() {
+    const index = Math.floor(Math.random() * countries.length);
+    const random = countries[index];
+    console.log(random);
+    console.log('countries', countries); // const randOptOne = countries[Math.floor(Math.random() * countries.length)];
+    // const randOptTwo = countries[Math.floor(Math.random() * countries.length)];
+    // const randOptThree = countries[Math.floor(Math.random() * countries.length)];
+    // const randomOptions = [random.name, randOptOne.name, randOptTwo.name, randOptThree.name];
+    // randomOptions.sort(() => {return 0.5 - Math.random() });
+    // setRandomCountry({randomCountry: random});
+    // setRandomOptions({randomOptions: randomOptions});
+    // setUserWin({userWin: ''});
+  }
 
-      if (!randomOptions.includes(randomOpt.name)) {
-        randomOptions.push(randomOpt.name);
-      }
+  function checkWin(e) {
+    const winCountry = randomCountry.name;
+    const userAnswer = e.target.value;
+
+    if (winCountry === userAnswer) {
+      setUserWin({
+        userWin: "Win"
+      });
+      setGoodAnswer({
+        goodAnswer: goodAnswer + 1
+      });
+    } else {
+      setUserWin({
+        userWin: "Lose"
+      });
     }
-  };
 
-  getData(); // useEffect(() => {
-  //     getData()
-  // }, [])
+    setTimeout(() => {
+      getRandomCountry();
+      setUserWin({
+        userWin: ''
+      });
+    }, 1000);
+  } // getData()
 
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Country quiz"));
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Country quiz"), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: getRandomCountry
+  }, "Random"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+    src: randomCountry.flag,
+    alt: "Country flag"
+  })), /*#__PURE__*/_react.default.createElement("h2", null, userWin === 'Win' ? 'You guess right! ' : '', userWin === 'Lose' ? 'You guess wrong. ' : '', "Score:", goodAnswer)), /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("form", {
+    onClick: e => checkWin(e)
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    value: randomOptions[0]
+  }, randomOptions[0]), /*#__PURE__*/_react.default.createElement("button", {
+    value: randomOptions[1]
+  }, randomOptions[1]), /*#__PURE__*/_react.default.createElement("button", {
+    value: randomOptions[2]
+  }, randomOptions[2]), /*#__PURE__*/_react.default.createElement("button", {
+    value: randomOptions[3]
+  }, randomOptions[3])))));
 }
 
 var _default = App;
@@ -33943,7 +33991,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52436" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49795" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
