@@ -4,6 +4,6 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import App from './pages/App'
 
 ReactDom.render(
-<Router>
+
     <App/>
-</Router>, document.getElementById("quiz"));
+, document.getElementById("quiz"));

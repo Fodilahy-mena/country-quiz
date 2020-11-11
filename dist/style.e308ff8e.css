@@ -1,0 +1,20 @@
+button:disabled {
+    cursor: not-allowed;
+}
+
+.btn {
+    background-color: white;
+}
+.btn:hover {
+    background-color: orange;
+}
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */

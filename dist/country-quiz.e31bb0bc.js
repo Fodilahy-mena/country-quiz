@@ -33870,81 +33870,165 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const API_URL = 'https://restcountries.eu/rest/v2/all';
 
 function App() {
-  const [countries, setCountries] = (0, _react.useState)({});
-  const [randomCountry, setRandomCountry] = (0, _react.useState)({});
+  const [countries, setCountries] = (0, _react.useState)([]);
+  const [randomCountry, setRandomCountry] = (0, _react.useState)('');
   const [randomOptions, setRandomOptions] = (0, _react.useState)([]);
-  const [userWin, setUserWin] = (0, _react.useState)('');
+  const [userWin, setUserWin] = (0, _react.useState)(false);
   const [goodAnswer, setGoodAnswer] = (0, _react.useState)(0);
+  const [showNext, setShowNext] = (0, _react.useState)(false);
+  const [showResult, setShowResult] = (0, _react.useState)(false);
+  const [buttonBackground, setButtonBackground] = (0, _react.useState)('');
 
-  function getData() {
-    fetch(API_URL).then(data => data.json()).then(countries => {
-      setCountries(countries);
-    });
+  async function getData() {
+    const response = await fetch(API_URL);
+    const responseJson = await response.json();
+    setCountries(responseJson);
+    const data = responseJson;
+    return data;
   }
 
   (0, _react.useEffect)(() => {
     getData();
   }, []);
   (0, _react.useEffect)(() => {
-    getRandomCountry();
-  }, [countries]); // console.log(randomCountry)
+    if (countries.length) {
+      getRandomCountry();
+    }
+  }, [countries]);
 
   function getRandomCountry() {
-    const index = Math.floor(Math.random() * countries.length);
-    const random = countries[index];
-    console.log(random);
-    console.log('countries', countries); // const randOptOne = countries[Math.floor(Math.random() * countries.length)];
-    // const randOptTwo = countries[Math.floor(Math.random() * countries.length)];
-    // const randOptThree = countries[Math.floor(Math.random() * countries.length)];
-    // const randomOptions = [random.name, randOptOne.name, randOptTwo.name, randOptThree.name];
-    // randomOptions.sort(() => {return 0.5 - Math.random() });
-    // setRandomCountry({randomCountry: random});
-    // setRandomOptions({randomOptions: randomOptions});
-    // setUserWin({userWin: ''});
+    const randomNumber = Math.floor(Math.random() * countries.length);
+    const random = countries[randomNumber];
+    const randOptOne = countries[Math.floor(Math.random() * countries.length)];
+    const randOptTwo = countries[Math.floor(Math.random() * countries.length)];
+    const randOptThree = countries[Math.floor(Math.random() * countries.length)];
+    const randomOptions = [random.name, randOptOne.name, randOptTwo.name, randOptThree.name];
+    randomOptions.sort(() => {
+      return 0.5 - Math.random();
+    });
+    setRandomCountry(random);
+    setRandomOptions(randomOptions);
+    setUserWin(false);
   }
 
   function checkWin(e) {
+    if (randomOptions[0] === e.target.value) {
+      setButtonBackground('green');
+    } else {
+      setButtonBackground('red');
+    }
+
+    if (randomOptions[1] === e.target.value) {
+      setButtonBackground('green');
+    } else {
+      setButtonBackground('red');
+    }
+
+    if (randomOptions[2] === e.target.value) {
+      setButtonBackground('green');
+    } else {
+      setButtonBackground('red');
+    }
+
+    if (randomOptions[4] === e.target.value) {
+      setButtonBackground('green');
+    } else {
+      setButtonBackground('red');
+    }
+
+    e.preventDefault();
     const winCountry = randomCountry.name;
     const userAnswer = e.target.value;
 
     if (winCountry === userAnswer) {
-      setUserWin({
-        userWin: "Win"
-      });
-      setGoodAnswer({
-        goodAnswer: goodAnswer + 1
-      });
+      setUserWin(true);
+      setGoodAnswer(prevState => prevState + 1);
     } else {
-      setUserWin({
-        userWin: "Lose"
-      });
+      setUserWin(false);
     }
 
-    setTimeout(() => {
-      getRandomCountry();
-      setUserWin({
-        userWin: ''
-      });
-    }, 1000);
-  } // getData()
+    setShowNext(true);
+  }
 
+  function nextQuestion(e) {
+    e.preventDefault();
+    console.log('next');
+    getRandomCountry();
+    setShowNext(false);
+  }
 
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Country quiz"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: getRandomCountry
-  }, "Random"), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
-    src: randomCountry.flag,
-    alt: "Country flag"
-  })), /*#__PURE__*/_react.default.createElement("h2", null, userWin === 'Win' ? 'You guess right! ' : '', userWin === 'Lose' ? 'You guess wrong. ' : '', "Score:", goodAnswer)), /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("form", {
+  function handleShowResult(e) {
+    e.preventDefault();
+    setShowResult(true);
+  }
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Country quiz"), showResult ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", null, "Results"), /*#__PURE__*/_react.default.createElement("p", null, "You have got ", /*#__PURE__*/_react.default.createElement("strong", null, goodAnswer), " good ", goodAnswer <= 1 ? 'answer' : 'answers'), /*#__PURE__*/_react.default.createElement("button", {
+    onClick: nextQuestion
+  }, "Try again")) : !userWin ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, randomCountry.capital, " is the capital of?")), /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("form", {
     onClick: e => checkWin(e)
   }, /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: `btn ${buttonBackground}`,
     value: randomOptions[0]
   }, randomOptions[0]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: `btn ${buttonBackground}`,
     value: randomOptions[1]
   }, randomOptions[1]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: `btn ${buttonBackground}`,
     value: randomOptions[2]
   }, randomOptions[2]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: `btn ${buttonBackground}`,
     value: randomOptions[3]
-  }, randomOptions[3])))));
+  }, randomOptions[3])), showNext ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: nextQuestion
+  }, "Next") : '')) : userWin ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+    width: "100px",
+    src: randomCountry.flag,
+    alt: "Country flag"
+  })), /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("form", {
+    onClick: e => checkWin(e)
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[0]
+  }, randomOptions[0]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[1]
+  }, randomOptions[1]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[2]
+  }, randomOptions[2]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[3]
+  }, randomOptions[3])), showNext ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: handleShowResult
+  }, "Result") : '')) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, randomCountry.capital, " is the capital of?")), /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("form", {
+    onClick: e => checkWin(e)
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[0]
+  }, randomOptions[0]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[1]
+  }, randomOptions[1]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[2]
+  }, randomOptions[2]), /*#__PURE__*/_react.default.createElement("button", {
+    disabled: showNext,
+    className: "btn",
+    value: randomOptions[3]
+  }, randomOptions[3])), showNext ? /*#__PURE__*/_react.default.createElement("button", {
+    onClick: handleShowResult
+  }, "Result") : '')))));
 }
 
 var _default = App;
@@ -33962,7 +34046,7 @@ var _App = _interopRequireDefault(require("./pages/App"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_App.default, null)), document.getElementById("quiz"));
+_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_App.default, null), document.getElementById("quiz"));
 },{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","react-router-dom":"node_modules/react-router-dom/esm/react-router-dom.js","./pages/App":"pages/App.js"}],"../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -33991,7 +34075,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49795" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49501" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
