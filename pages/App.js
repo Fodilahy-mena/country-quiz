@@ -2,18 +2,16 @@ import React, {useState, useEffect} from 'react'
 
 const API_URL = 'https://restcountries.eu/rest/v2/all'
 
-
 function App() {
+
     const [countries, setCountries] = useState([]) 
     const [randomCountry, setRandomCountry] = useState('')
     const [randomOptions, setRandomOptions] = useState([])
-    const [userWin, setUserWin] = useState(false)
+    const [isUserWin, setUserWin] = useState(false)
     const [goodAnswer, setGoodAnswer] = useState(0)
     const [showNext, setShowNext] = useState(false)
-    const [showResult, setShowResult] = useState(false);
-    const [buttonBackground, setButtonBackground] = useState('')
+    const [showOtherQuestion, setShowOtherQuestion] = useState(false);
     
-
 
     async function getData() {
         const response = await fetch(API_URL);
@@ -47,29 +45,8 @@ function App() {
     }
     
     function checkWin(e) {
-        if(randomOptions[0] === e.target.value) {
-            setButtonBackground('green');
-        } else {
-            setButtonBackground('red');
-        }
-        if(randomOptions[1] === e.target.value) {
-            setButtonBackground('green');
-        } else {
-            setButtonBackground('red');
-        }
-        if(randomOptions[2] === e.target.value) {
-            setButtonBackground('green');
-        } else {
-            setButtonBackground('red');
-        }
-
-        if(randomOptions[4] === e.target.value) {
-            setButtonBackground('green');
-        } else {
-            setButtonBackground('red');
-        }
-        
         e.preventDefault();
+          
         const winCountry = randomCountry.name;
         const userAnswer = e.target.value;
         if(winCountry === userAnswer) {
@@ -79,18 +56,53 @@ function App() {
             setUserWin(false)
         }
         setShowNext(true);
+
+        let btns, i;
+        btns = document.querySelectorAll(".btn");
+        for (i = 0; i < btns.length; i++) {
+            if(btns[i].textContent === randomCountry.name) {
+                btns[i].classList.add('true--answer')
+            
+            } else {
+                btns[i].classList.add('wrong--answer')
+            }
+          }
     }
     
     function nextQuestion(e) {
         e.preventDefault();
-        console.log('next')
+
         getRandomCountry();
         setShowNext(false);
+        
+        let btns, i;
+        btns = document.querySelectorAll(".btn");
+        for (i = 0; i < btns.length; i++) {
+            if(btns[i].textContent === randomCountry.name) {
+                btns[i].classList.remove('true--answer')
+            } else {
+                btns[i].classList.remove('wrong--answer')
+            }
+          }
     }
 
-    function handleShowResult(e) {
+    function showOtherTypeOfQuestion(e) {
         e.preventDefault();
-        setShowResult(true)
+
+        getRandomCountry();
+        setShowOtherQuestion(prevState => !prevState)
+        setShowNext(false)
+
+        let btns, i;
+        btns = document.querySelectorAll(".btn");
+        for (i = 0; i < btns.length; i++) {
+            if(btns[i].textContent === randomCountry.name) {
+                btns[i].classList.remove('true--answer')
+            
+            } else {
+                btns[i].classList.remove('wrong--answer')
+            }
+          }
     }
     
     return (
@@ -98,62 +110,35 @@ function App() {
         <div>
             <div>
                 <h1>Country quiz</h1>
-                { showResult ?
+                    {isUserWin ? 
                     <>
-                        <h2>
-                            Results
-                        </h2>
-                        <p>
-                            You have got <strong>{goodAnswer}</strong> good {goodAnswer <= 1 ? 'answer' : 'answers'}
-                        </p>
-                        <button onClick={nextQuestion}>Try again</button>
-                    </>
-                : !userWin ? (
+                        <h2>Result</h2>
+                        <p>You got <strong>{goodAnswer}</strong> good {goodAnswer <= 1 ? "answer" : "anwers"}</p>
+                        <button onClick={showOtherTypeOfQuestion}>Try again</button>
+                    </> :
+
                     <>
+                    {!showOtherQuestion ?
                     <div>
                         <h2>{randomCountry.capital} is the capital of?</h2> 
-                    </div>
+                    </div> : 
+
+                    <div>
+                        <img width="100px" src={randomCountry.flag} alt="Country flag" /> 
+                        <h2>Which country does this flag belong to?</h2>
+                    </div>}
                     <fieldset>
                         <form onClick={e => checkWin(e)}>
-                            <button disabled={showNext} className={`btn ${buttonBackground}`} value={randomOptions[0]}>{randomOptions[0]}</button>
-                            <button disabled={showNext} className={`btn ${buttonBackground}`} value={randomOptions[1]}>{randomOptions[1]}</button>
-                            <button disabled={showNext} className={`btn ${buttonBackground}`} value={randomOptions[2]}>{randomOptions[2]}</button>
-                            <button disabled={showNext} className={`btn ${buttonBackground}`} value={randomOptions[3]}>{randomOptions[3]}</button>
+                            <button disabled={showNext} className={`btn`} value={randomOptions[0]}>{randomOptions[0]}</button>
+                            <button disabled={showNext} className={`btn`} value={randomOptions[1]}>{randomOptions[1]}</button>
+                            <button disabled={showNext} className={`btn`} value={randomOptions[2]}>{randomOptions[2]}</button>
+                            <button disabled={showNext} className={`btn`} value={randomOptions[3]}>{randomOptions[3]}</button>
                         </form>
                         {showNext ? <button onClick={nextQuestion}>Next</button> : ''}
                     </fieldset>
                     </>
-                ) : userWin ? (
-                    <>
-                    <div>
-                        <img width="100px" src={randomCountry.flag} alt="Country flag" /> 
-                    </div>
-                    <fieldset>
-                        <form onClick={e => checkWin(e)}>
-                            <button disabled={showNext} className="btn" value={randomOptions[0]}>{randomOptions[0]}</button>
-                            <button disabled={showNext} className="btn" value={randomOptions[1]}>{randomOptions[1]}</button>
-                            <button disabled={showNext} className="btn" value={randomOptions[2]}>{randomOptions[2]}</button>
-                            <button disabled={showNext} className="btn" value={randomOptions[3]}>{randomOptions[3]}</button>
-                        </form>
-                        {showNext ? <button onClick={handleShowResult}>Result</button> : ''}
-                    </fieldset>
-                    </>
-                ) : (
-                    <>
-                        <div>
-                            <h2>{randomCountry.capital} is the capital of?</h2> 
-                        </div>
-                        <fieldset>
-                            <form onClick={e => checkWin(e)}>
-                                <button disabled={showNext} className="btn" value={randomOptions[0]}>{randomOptions[0]}</button>
-                                <button disabled={showNext} className="btn" value={randomOptions[1]}>{randomOptions[1]}</button>
-                                <button disabled={showNext} className="btn" value={randomOptions[2]}>{randomOptions[2]}</button>
-                                <button disabled={showNext} className="btn" value={randomOptions[3]}>{randomOptions[3]}</button>
-                            </form>
-                            {showNext ? <button onClick={handleShowResult}>Result</button> : ''}
-                        </fieldset>
-                    </>
-                )}
+                    }
+                    
             </div>
         </div>
         </>

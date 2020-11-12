@@ -9,11 +9,11 @@ button:disabled {
     background-color: orange;
 }
 
-.green {
+.true--answer {
     background-color: green;
 }
 
-.red {
+.wrong--answer {
     background-color: red;
 }
 
