@@ -33853,7 +33853,9 @@ if ("development" !== "production") {
     style: _propTypes.default.object
   });
 }
-},{"react-router":"node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"node_modules/react/index.js","history":"node_modules/history/esm/history.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"pages/App.js":[function(require,module,exports) {
+},{"react-router":"node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"node_modules/react/index.js","history":"node_modules/history/esm/history.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"Winner.svg":[function(require,module,exports) {
+module.exports = "/Winner.ba93b52b.svg";
+},{}],"pages/App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33863,6 +33865,10 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _Winner = _interopRequireDefault(require("../Winner.svg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -33870,13 +33876,23 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 const API_URL = 'https://restcountries.eu/rest/v2/all';
 
 function App() {
-  const [countries, setCountries] = (0, _react.useState)([]);
-  const [randomCountry, setRandomCountry] = (0, _react.useState)('');
-  const [randomOptions, setRandomOptions] = (0, _react.useState)([]);
-  const [isUserWin, setUserWin] = (0, _react.useState)(false);
-  const [goodAnswer, setGoodAnswer] = (0, _react.useState)(0);
-  const [showNext, setShowNext] = (0, _react.useState)(false);
-  const [showOtherQuestion, setShowOtherQuestion] = (0, _react.useState)(false);
+  // store all of the countries in an array
+  const [countries, setCountries] = (0, _react.useState)([]); // an object of a random country
+
+  const [randomCountry, setRandomCountry] = (0, _react.useState)({}); // store four random country names options in an array 
+
+  const [randomOptions, setRandomOptions] = (0, _react.useState)([]); // change this boolean into true if the user clicked on the right option
+
+  const [isUserWinThenContinue, setIsUserWinThenContinue] = (0, _react.useState)(true); // increment this default value of score whenever the user got a good answer
+
+  const [goodAnswer, setGoodAnswer] = (0, _react.useState)(0); // will be true if the user got wrong answer 
+  //and will countinuously ask a similar question (runing the getRandomCountry() function)
+
+  const [showNext, setShowNext] = (0, _react.useState)(false); // Ask other type of questions after displaying the total score
+
+  const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = (0, _react.useState)(false);
+  const [nameOfCountry, setNameOfCountry] = (0, _react.useState)('');
+  const [choosenCountry, setChoosenCountry] = (0, _react.useState)('');
 
   async function getData() {
     const response = await fetch(API_URL);
@@ -33890,46 +33906,65 @@ function App() {
     getData();
   }, []);
   (0, _react.useEffect)(() => {
+    // check if the countries array is already exist. 
+    // If so, run the getRandomCountry(); function,
+    // otherwise, wait until it is loaded.
     if (countries.length) {
       getRandomCountry();
     }
-  }, [countries]);
+  }, [countries]); // set a parameter in order to access it in the getRandomCountry(); function 
 
   function getRandomCountry() {
-    const randomNumber = Math.floor(Math.random() * countries.length);
-    const random = countries[randomNumber];
+    // get a random number
+    const randomNumber = Math.floor(Math.random() * countries.length); // only get one random country object when running
+    // this will be the question
+
+    const random = countries[randomNumber]; // get three other random countries
+
     const randOptOne = countries[Math.floor(Math.random() * countries.length)];
     const randOptTwo = countries[Math.floor(Math.random() * countries.length)];
-    const randOptThree = countries[Math.floor(Math.random() * countries.length)];
+    const randOptThree = countries[Math.floor(Math.random() * countries.length)]; // mix all of four random countries together by using sort(),
+    // so that the right answer will move from its place when asking other question
+
     const randomOptions = [random.name, randOptOne.name, randOptTwo.name, randOptThree.name];
     randomOptions.sort(() => {
       return 0.5 - Math.random();
-    });
+    }); // put the correct random country in the randomCountry variable
+
     setRandomCountry(random);
     setRandomOptions(randomOptions);
-    setUserWin(false);
+    setIsUserWinThenContinue(false);
   }
 
   function checkWin(e) {
-    e.preventDefault();
+    e.preventDefault(); // compare the user's choice to the random country name
+    // if they are same, icrement the good answer score
+
     const winCountry = randomCountry.name;
+    setNameOfCountry(winCountry);
     const userAnswer = e.target.value;
+    setChoosenCountry(userAnswer);
 
     if (winCountry === userAnswer) {
-      setUserWin(true);
+      setIsUserWinThenContinue(false);
       setGoodAnswer(prevState => prevState + 1);
     } else {
-      setUserWin(false);
-    }
+      setIsUserWinThenContinue(true);
+    } // after clicking any of the options,
+    // show a next button to go to the other questions
 
-    setShowNext(true);
+
+    setShowNext(true); // loop through every buttons options,
+    // and compare their values (I uset textContent) to the random country name
+    // whether they are same or not, all of them will haveii a specific class
+
     let btns, i;
     btns = document.querySelectorAll(".btn");
 
     for (i = 0; i < btns.length; i++) {
       if (btns[i].textContent === randomCountry.name) {
         btns[i].classList.add('true--answer');
-      } else {
+      } else if (btns[i].textContent === userAnswer) {
         btns[i].classList.add('wrong--answer');
       }
     }
@@ -33938,7 +33973,8 @@ function App() {
   function nextQuestion(e) {
     e.preventDefault();
     getRandomCountry();
-    setShowNext(false);
+    setShowNext(false); // setIsUserWinThenContinue(false)
+
     let btns, i;
     btns = document.querySelectorAll(".btn");
 
@@ -33954,7 +33990,7 @@ function App() {
   function showOtherTypeOfQuestion(e) {
     e.preventDefault();
     getRandomCountry();
-    setShowOtherQuestion(prevState => !prevState);
+    setAskOtherTypeOfQuestion(prevState => !prevState);
     setShowNext(false);
     let btns, i;
     btns = document.querySelectorAll(".btn");
@@ -33968,13 +34004,20 @@ function App() {
     }
   }
 
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Country quiz"), isUserWin ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", null, "Result"), /*#__PURE__*/_react.default.createElement("p", null, "You got ", /*#__PURE__*/_react.default.createElement("strong", null, goodAnswer), " good ", goodAnswer <= 1 ? "answer" : "anwers"), /*#__PURE__*/_react.default.createElement("button", {
-    onClick: showOtherTypeOfQuestion
-  }, "Try again")) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !showOtherQuestion ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+  console.log("win", nameOfCountry);
+  console.log("choosen", choosenCountry);
+
+  if (nameOfCountry !== choosenCountry) {
+    console.log("NOP, show result");
+  } else {
+    console.log("Yep, continue");
+  }
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, !isUserWinThenContinue ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !askOtherTypeQuestion ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
     width: "100px",
     src: randomCountry.flag,
     alt: "Country flag"
-  }), /*#__PURE__*/_react.default.createElement("h2", null, "Which country does this flag belong to?")), /*#__PURE__*/_react.default.createElement("fieldset", null, /*#__PURE__*/_react.default.createElement("form", {
+  }), /*#__PURE__*/_react.default.createElement("h2", null, "Which country does this flag belong to?")), /*#__PURE__*/_react.default.createElement("form", {
     onClick: e => checkWin(e)
   }, /*#__PURE__*/_react.default.createElement("button", {
     disabled: showNext,
@@ -33993,13 +34036,23 @@ function App() {
     className: `btn`,
     value: randomOptions[3]
   }, randomOptions[3])), showNext ? /*#__PURE__*/_react.default.createElement("button", {
+    className: "next--btn",
     onClick: nextQuestion
-  }, "Next") : '')))));
+  }, "Next") : '') : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "winner"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    className: "winner--img",
+    width: "236px",
+    src: _Winner.default
+  }), /*#__PURE__*/_react.default.createElement("h2", null, "Results"), /*#__PURE__*/_react.default.createElement("p", null, "You got ", /*#__PURE__*/_react.default.createElement("strong", null, goodAnswer), " good ", goodAnswer <= 1 ? "answer" : "anwers"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "try--btn",
+    onClick: showOtherTypeOfQuestion
+  }, "Try again"))))));
 }
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../Winner.svg":"Winner.svg"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -34041,7 +34094,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58730" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59867" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
