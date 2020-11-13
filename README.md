@@ -65,7 +65,7 @@ Template for your readme :
 
 ![screenshot](screenshot.png)
 
-There shown on to there is the demo of this react country quiz project.
+There shown on top there is the demo of this react country quiz project.
 
 I have done the most of it but some I couldn't handle them.
 
