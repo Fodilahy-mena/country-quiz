@@ -63,9 +63,23 @@ Template for your readme :
 
 ## Overview
 
-![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
+![screenshot](screenshot.png)
 
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
+There shown on to there is the demo of this react country quiz project.
+
+I have done the most of it but some I couldn't handle them.
+
+I had a serious problem when getting the random country from api. It took me for almost a day but it was solved by passing a parameter with useEffect where I run the getRandom function.
+The problem happened when running getRandom function because it is running before the data api is loaded. It meant that the array which I randomized was empty (undefined). If statement did the hard work, we wait for the data api loaded before we run the getRandomCountry function.
+That was one of the most challenging part of it.
+
+Giving a specific class with clicked button (random countries choices) was quite hard but I did it with for loop. Though, we can not see a specific background color nore a cross icon with wrrong choice that the user made because I display the results stight away when the anwer is incorrect. With the right answer, we can see the tick icon.
+
+
+I tried to not display the results stright away even thought the answer is incorrect but I couldn't get it work. I am not satisfied with it because, I wan't someone seeing the cross icon 
+when they select the wrrong option.
+
+Overall, it is a very good project, especially since it is a little bit challeging.
 
 -   Where can I see your demo?
 -   What was your experience?
@@ -106,5 +120,5 @@ $ npm start
 ## Contact
 
 -   Website [your-website.com](https://{your-web-site-link})
--   GitHub [@your-username](https://{github.com/your-usermame})
+-   GitHub [@Fodilahy-mana](https://github.com/Fodilahy-mena)
 -   Twitter [@your-twitter](https://{twitter.com/your-username})
