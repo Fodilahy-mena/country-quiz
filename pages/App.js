@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import Winner from '../Winner.svg'
+import Winner from '../Winner.svg';
+import Logo from '../Logo.svg';
 
 const API_URL = 'https://restcountries.eu/rest/v2/all'
 
@@ -21,7 +22,8 @@ function App() {
     // Ask other type of questions after displaying the total score
     const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = useState(false);
     const [nameOfCountry, setNameOfCountry] = useState('');
-    const [choosenCountry, setChoosenCountry] = useState('')
+    const [choosenCountry, setChoosenCountry] = useState('');
+    const [wrongAnswer, setWrongAnswer] = useState(false)
     
 
     async function getData() {
@@ -112,14 +114,15 @@ function App() {
             }
           }
     }
-
+    // will be run after displaying the score
     function showOtherTypeOfQuestion(e) {
         e.preventDefault();
 
         getRandomCountry();
         setAskOtherTypeOfQuestion(prevState => !prevState)
-        setShowNext(false)
-
+        setShowNext(false);
+        // reset the score into 0
+        setGoodAnswer(0)
         let btns, i;
         btns = document.querySelectorAll(".btn");
         for (i = 0; i < btns.length; i++) {
@@ -131,8 +134,7 @@ function App() {
             }
           }
     }
-    console.log("win",nameOfCountry)
-    console.log("choosen", choosenCountry);
+    
     if(nameOfCountry !== choosenCountry) {
         console.log("NOP, show result");
     } else {
@@ -142,15 +144,17 @@ function App() {
         <>
         <div>
             <div>
-                {!isUserWinThenContinue ? 
+                {!isUserWinThenContinue ?
                 <>
                     { !askOtherTypeQuestion ?
                     <div>
+                        <img className="logo" width="162px" src={Logo}/>
                         <h2>{randomCountry.capital} is the capital of?</h2> 
                     </div> : 
 
                     <div>
-                        <img width="100px" src={randomCountry.flag} alt="Country flag" /> 
+                        <img className="logo" width="162px" src={Logo}/>
+                        <img className="flag" width="84px" src={randomCountry.flag} alt="Country flag" /> 
                         <h2>Which country does this flag belong to?</h2>
                     </div>}
                     
@@ -160,8 +164,10 @@ function App() {
                         <button disabled={showNext} className={`btn`} value={randomOptions[2]}>{randomOptions[2]}</button>
                         <button disabled={showNext} className={`btn`} value={randomOptions[3]}>{randomOptions[3]}</button>
                     </form>
-                    {showNext ? <button className="next--btn" onClick={nextQuestion}>Next</button> : ''}
-                    
+                    {showNext ? 
+                    <button className="next--btn" onClick={nextQuestion}>Next</button>
+                     : ""
+                    }
                 </> : 
                 <> 
                     <div className="winner"> 
@@ -170,9 +176,8 @@ function App() {
                         <p>You got <strong>{goodAnswer}</strong> good {goodAnswer <= 1 ? "answer" : "anwers"}</p>
                         <button className="try--btn" onClick={showOtherTypeOfQuestion}>Try again</button>
                     </div>
-                </> 
+                </>
                 }
-                
             </div>
         </div>
         </>

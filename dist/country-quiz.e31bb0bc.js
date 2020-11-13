@@ -33855,6 +33855,8 @@ if ("development" !== "production") {
 }
 },{"react-router":"node_modules/react-router/esm/react-router.js","@babel/runtime/helpers/esm/inheritsLoose":"node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","react":"node_modules/react/index.js","history":"node_modules/history/esm/history.js","prop-types":"node_modules/prop-types/index.js","tiny-warning":"node_modules/tiny-warning/dist/tiny-warning.esm.js","@babel/runtime/helpers/esm/extends":"node_modules/@babel/runtime/helpers/esm/extends.js","@babel/runtime/helpers/esm/objectWithoutPropertiesLoose":"node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js","tiny-invariant":"node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"Winner.svg":[function(require,module,exports) {
 module.exports = "/Winner.ba93b52b.svg";
+},{}],"Logo.svg":[function(require,module,exports) {
+module.exports = "/Logo.c781662b.svg";
 },{}],"pages/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -33866,6 +33868,8 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _Winner = _interopRequireDefault(require("../Winner.svg"));
+
+var _Logo = _interopRequireDefault(require("../Logo.svg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -33893,6 +33897,7 @@ function App() {
   const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = (0, _react.useState)(false);
   const [nameOfCountry, setNameOfCountry] = (0, _react.useState)('');
   const [choosenCountry, setChoosenCountry] = (0, _react.useState)('');
+  const [wrongAnswer, setWrongAnswer] = (0, _react.useState)(false);
 
   async function getData() {
     const response = await fetch(API_URL);
@@ -33985,13 +33990,16 @@ function App() {
         btns[i].classList.remove('wrong--answer');
       }
     }
-  }
+  } // will be run after displaying the score
+
 
   function showOtherTypeOfQuestion(e) {
     e.preventDefault();
     getRandomCountry();
     setAskOtherTypeOfQuestion(prevState => !prevState);
-    setShowNext(false);
+    setShowNext(false); // reset the score into 0
+
+    setGoodAnswer(0);
     let btns, i;
     btns = document.querySelectorAll(".btn");
 
@@ -34004,17 +34012,23 @@ function App() {
     }
   }
 
-  console.log("win", nameOfCountry);
-  console.log("choosen", choosenCountry);
-
   if (nameOfCountry !== choosenCountry) {
     console.log("NOP, show result");
   } else {
     console.log("Yep, continue");
   }
 
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, !isUserWinThenContinue ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !askOtherTypeQuestion ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
-    width: "100px",
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, !isUserWinThenContinue ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !askOtherTypeQuestion ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+    className: "logo",
+    width: "162px",
+    src: _Logo.default
+  }), /*#__PURE__*/_react.default.createElement("h2", null, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+    className: "logo",
+    width: "162px",
+    src: _Logo.default
+  }), /*#__PURE__*/_react.default.createElement("img", {
+    className: "flag",
+    width: "84px",
     src: randomCountry.flag,
     alt: "Country flag"
   }), /*#__PURE__*/_react.default.createElement("h2", null, "Which country does this flag belong to?")), /*#__PURE__*/_react.default.createElement("form", {
@@ -34038,7 +34052,7 @@ function App() {
   }, randomOptions[3])), showNext ? /*#__PURE__*/_react.default.createElement("button", {
     className: "next--btn",
     onClick: nextQuestion
-  }, "Next") : '') : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+  }, "Next") : "") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "winner"
   }, /*#__PURE__*/_react.default.createElement("img", {
     className: "winner--img",
@@ -34052,7 +34066,7 @@ function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../Winner.svg":"Winner.svg"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../Winner.svg":"Winner.svg","../Logo.svg":"Logo.svg"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -34094,7 +34108,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59867" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61989" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

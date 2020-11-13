@@ -222,3 +222,9 @@ function App() {
 }
 
 export default App */
+
+/* {showNext && userChoice === nameOfCountry ? 
+                    ( <button className="next--btn" onClick={nextQuestion}>Next</button>
+                     ) : showNext && userChoice !== nameOfCountry ? (
+                     <button className="next--btn" onClick={handleShowResults}>Next</button>) : (
+                         <></> */
