@@ -33883,16 +33883,17 @@ function useCountryQuiz() {
 
   const [randomOptions, setRandomOptions] = (0, _react.useState)([]); // change this boolean into true if the user clicked on the right option
 
-  const [isUserWinThenContinue, setIsUserWinThenContinue] = (0, _react.useState)(true); // increment this default value of score whenever the user got a good answer
+  const [isUserWinThenContinue, setIsUserWinThenContinue] = (0, _react.useState)(false); // increment this default value of score whenever the user got a good answer
 
   const [goodAnswer, setGoodAnswer] = (0, _react.useState)(0); // will be true if the user got wrong answer 
   //and will countinuously ask a similar question (runing the getRandomCountry() function)
 
   const [showNext, setShowNext] = (0, _react.useState)(false); // Ask other type of questions after displaying the total score
+  // const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = useState(false);
 
-  const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = (0, _react.useState)(false);
   const [nameOfCountry, setNameOfCountry] = (0, _react.useState)('');
   const [choosenCountry, setChoosenCountry] = (0, _react.useState)('');
+  const [randomNumber, setRandomNumber] = (0, _react.useState)(0);
 
   async function getData() {
     const response = await fetch(API_URL);
@@ -33916,7 +33917,7 @@ function useCountryQuiz() {
 
   function getRandomCountry() {
     // get a random number
-    const randomNumber = Math.floor(Math.random() * countries.length); // only get one random country object when running
+    setRandomNumber(Math.floor(Math.random() * countries.length)); // only get one random country object when running
     // this will be the question
 
     const random = countries[randomNumber]; // get three other random countries
@@ -33946,10 +33947,10 @@ function useCountryQuiz() {
     setChoosenCountry(userAnswer);
 
     if (winCountry === userAnswer) {
-      setIsUserWinThenContinue(false);
+      setIsUserWinThenContinue(true);
       setGoodAnswer(prevState => prevState + 1);
     } else {
-      setIsUserWinThenContinue(true);
+      setIsUserWinThenContinue(false);
     } // after clicking any of the options,
     // show a next button to go to the other questions
 
@@ -33971,10 +33972,10 @@ function useCountryQuiz() {
   }
 
   function nextQuestion(e) {
-    e.preventDefault();
+    // e.preventDefault();
     getRandomCountry();
-    setShowNext(false); // setIsUserWinThenContinue(false)
-
+    setShowNext(false);
+    setIsUserWinThenContinue(false);
     let btns, i;
     btns = document.querySelectorAll(".btn");
 
@@ -33990,8 +33991,9 @@ function useCountryQuiz() {
 
   function showOtherTypeOfQuestion(e) {
     e.preventDefault();
-    getRandomCountry();
-    setAskOtherTypeOfQuestion(prevState => !prevState);
+    getRandomCountry(); // setAskOtherTypeOfQuestion(prevState => !prevState)
+
+    setIsUserWinThenContinue(false);
     setShowNext(false); // reset the score into 0
 
     setGoodAnswer(0); // remove the class of the button so that the specific mark of 
@@ -34009,11 +34011,23 @@ function useCountryQuiz() {
         btns[i].classList.remove('wrong--answer');
       }
     }
+  }
+
+  function handleResult() {
+    if (isUserWinThenContinue) {
+      // if user's anwer is correct, continue asking an other question 
+      nextQuestion();
+    } else {
+      // otherwise, set the random country into null so that it will show
+      // the result after clicking the next button
+      setRandomCountry(null);
+    }
   } // return/export any variables or functions that will be necessary
   // for the CountryQuiz component
 
 
-  return [isUserWinThenContinue, askOtherTypeQuestion, _Logo.default, randomCountry, showNext, randomOptions, nextQuestion, _Winner.default, goodAnswer, showOtherTypeOfQuestion, checkWin];
+  return [isUserWinThenContinue, // askOtherTypeQuestion, 
+  _Logo.default, randomCountry, showNext, randomOptions, nextQuestion, _Winner.default, goodAnswer, showOtherTypeOfQuestion, checkWin, randomNumber, handleResult];
 }
 
 var _default = useCountryQuiz;
@@ -34033,25 +34047,31 @@ var _useCountryQuiz = _interopRequireDefault(require("./useCountryQuiz"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function CountryQuiz() {
-  const [isUserWinThenContinue, askOtherTypeQuestion, Logo, randomCountry, showNext, randomOptions, nextQuestion, Winner, goodAnswer, showOtherTypeOfQuestion, checkWin] = (0, _useCountryQuiz.default)();
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, !isUserWinThenContinue ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, !askOtherTypeQuestion ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
-    className: "logo",
-    width: "162px",
-    src: Logo
-  }), /*#__PURE__*/_react.default.createElement("h2", {
-    className: "question1"
-  }, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
-    className: "logo",
-    width: "162px",
-    src: Logo
-  }), /*#__PURE__*/_react.default.createElement("img", {
-    className: "flag",
-    width: "84px",
-    src: randomCountry.flag,
-    alt: "Country flag"
-  }), /*#__PURE__*/_react.default.createElement("h2", {
-    className: "question2"
-  }, "Which country does this flag belong to?")), /*#__PURE__*/_react.default.createElement("form", {
+  const [isUserWinThenContinue, // askOtherTypeQuestion,
+  Logo, randomCountry, showNext, randomOptions, nextQuestion, Winner, goodAnswer, showOtherTypeOfQuestion, checkWin, randomNumber, handleResult] = (0, _useCountryQuiz.default)();
+
+  function RandomizeTwoQuestions() {
+    return /*#__PURE__*/_react.default.createElement("div", null, randomNumber % 2 == 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+      className: "logo",
+      width: "162px",
+      src: Logo
+    }), /*#__PURE__*/_react.default.createElement("h2", {
+      className: "question1"
+    }, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+      className: "logo",
+      width: "162px",
+      src: Logo
+    }), /*#__PURE__*/_react.default.createElement("img", {
+      className: "flag",
+      width: "84px",
+      src: randomCountry.flag,
+      alt: "Country flag"
+    }), /*#__PURE__*/_react.default.createElement("h2", {
+      className: "question2"
+    }, "Which country does this flag belong to?")));
+  }
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", null, randomCountry !== null ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(RandomizeTwoQuestions, null), /*#__PURE__*/_react.default.createElement("form", {
     onClick: e => checkWin(e)
   }, /*#__PURE__*/_react.default.createElement("button", {
     disabled: showNext,
@@ -34087,8 +34107,8 @@ function CountryQuiz() {
     className: "after--icon"
   }))), showNext ? /*#__PURE__*/_react.default.createElement("button", {
     className: "next--btn",
-    onClick: nextQuestion
-  }, "Next") : "") : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+    onClick: handleResult
+  }, "Next") : "") : /*#__PURE__*/_react.default.createElement("div", {
     className: "winner"
   }, /*#__PURE__*/_react.default.createElement("img", {
     className: "winner--img",
@@ -34097,7 +34117,7 @@ function CountryQuiz() {
   }), /*#__PURE__*/_react.default.createElement("h2", null, "Results"), /*#__PURE__*/_react.default.createElement("p", null, "You got ", /*#__PURE__*/_react.default.createElement("strong", null, goodAnswer), " good ", goodAnswer <= 1 ? "answer" : "anwers"), /*#__PURE__*/_react.default.createElement("button", {
     className: "try--btn",
     onClick: showOtherTypeOfQuestion
-  }, "Try again"))))));
+  }, "Try again")))));
 }
 
 var _default = CountryQuiz;
@@ -34164,7 +34184,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50875" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52655" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

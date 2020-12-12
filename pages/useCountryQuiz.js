@@ -12,16 +12,17 @@ function useCountryQuiz() {
     // store four random country names options in an array 
     const [randomOptions, setRandomOptions] = useState([])
     // change this boolean into true if the user clicked on the right option
-    const [isUserWinThenContinue, setIsUserWinThenContinue] = useState(true)
+    const [isUserWinThenContinue, setIsUserWinThenContinue] = useState(false)
     // increment this default value of score whenever the user got a good answer
     const [goodAnswer, setGoodAnswer] = useState(0);
     // will be true if the user got wrong answer 
     //and will countinuously ask a similar question (runing the getRandomCountry() function)
     const [showNext, setShowNext] = useState(false);
     // Ask other type of questions after displaying the total score
-    const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = useState(false);
+    // const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = useState(false);
     const [nameOfCountry, setNameOfCountry] = useState('');
     const [choosenCountry, setChoosenCountry] = useState('');
+    const [randomNumber, setRandomNumber] = useState(0);
     
     async function getData() {
         const response = await fetch(API_URL);
@@ -45,7 +46,7 @@ function useCountryQuiz() {
     
     function getRandomCountry() {
         // get a random number
-        const randomNumber = Math.floor(Math.random() * countries.length);
+        setRandomNumber(Math.floor(Math.random() * countries.length));
         // only get one random country object when running
         // this will be the question
         const random = countries[randomNumber];
@@ -63,6 +64,7 @@ function useCountryQuiz() {
         setIsUserWinThenContinue(false);
     }
     
+    
     function checkWin(e) {
         e.preventDefault();
         // compare the user's choice to the random country name
@@ -72,14 +74,15 @@ function useCountryQuiz() {
         const userAnswer = e.target.value;
         setChoosenCountry(userAnswer)
         if(winCountry === userAnswer) {
-            setIsUserWinThenContinue(false);
+            setIsUserWinThenContinue(true);
             setGoodAnswer(prevState => prevState + 1);
         } else {
-            setIsUserWinThenContinue(true)
+            setIsUserWinThenContinue(false)
         }
         // after clicking any of the options,
         // show a next button to go to the other questions
         setShowNext(true);
+        
         // loop through every buttons options,
         // and compare their values (I uset textContent) to the random country name
         // whether they are same or not, all of them will haveii a specific class
@@ -96,11 +99,11 @@ function useCountryQuiz() {
     }
     
     function nextQuestion(e) {
-        e.preventDefault();
+        // e.preventDefault();
 
         getRandomCountry();
         setShowNext(false);
-        // setIsUserWinThenContinue(false)
+        setIsUserWinThenContinue(false)
         let btns, i;
         btns = document.querySelectorAll(".btn");
         for (i = 0; i < btns.length; i++) {
@@ -117,7 +120,8 @@ function useCountryQuiz() {
         e.preventDefault();
 
         getRandomCountry();
-        setAskOtherTypeOfQuestion(prevState => !prevState)
+        // setAskOtherTypeOfQuestion(prevState => !prevState)
+        setIsUserWinThenContinue(false)
         setShowNext(false);
         // reset the score into 0
         setGoodAnswer(0);
@@ -137,10 +141,22 @@ function useCountryQuiz() {
           }
     }
 
+    function handleResult() {
+        
+        if(isUserWinThenContinue) {
+            // if user's anwer is correct, continue asking an other question 
+            nextQuestion();
+        } else {
+            // otherwise, set the random country into null so that it will show
+            // the result after clicking the next button
+            setRandomCountry(null);
+           
+        }
+    }
     // return/export any variables or functions that will be necessary
     // for the CountryQuiz component
     return [isUserWinThenContinue, 
-        askOtherTypeQuestion, 
+        // askOtherTypeQuestion, 
         Logo,
         randomCountry,
         showNext,
@@ -149,7 +165,9 @@ function useCountryQuiz() {
         Winner,
         goodAnswer,
         showOtherTypeOfQuestion,
-        checkWin];
+        checkWin,
+        randomNumber,
+        handleResult];
 }
 
 export default useCountryQuiz
