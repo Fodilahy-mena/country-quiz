@@ -18,10 +18,6 @@ function useCountryQuiz() {
     // will be true if the user got wrong answer 
     //and will countinuously ask a similar question (runing the getRandomCountry() function)
     const [showNext, setShowNext] = useState(false);
-    // Ask other type of questions after displaying the total score
-    // const [askOtherTypeQuestion, setAskOtherTypeOfQuestion] = useState(false);
-    const [nameOfCountry, setNameOfCountry] = useState('');
-    const [choosenCountry, setChoosenCountry] = useState('');
     const [randomNumber, setRandomNumber] = useState(0);
     
     async function getData() {
@@ -61,7 +57,7 @@ function useCountryQuiz() {
         // put the correct random country in the randomCountry variable
         setRandomCountry(random);
         setRandomOptions(randomOptions);
-        setIsUserWinThenContinue(false);
+        // setIsUserWinThenContinue(false);
     }
     
     
@@ -70,14 +66,15 @@ function useCountryQuiz() {
         // compare the user's choice to the random country name
         // if they are same, icrement the good answer score
         const winCountry = randomCountry.name;
-        setNameOfCountry(winCountry)
-        const userAnswer = e.target.value;
-        setChoosenCountry(userAnswer)
+        // e.target.value is sometimes undefined so we take the e.target.textContent
+        // instead of having some bugs
+        const userAnswer =  e.target.textContent;
+        
         if(winCountry === userAnswer) {
-            setIsUserWinThenContinue(true);
             setGoodAnswer(prevState => prevState + 1);
+            setIsUserWinThenContinue(true);
         } else {
-            setIsUserWinThenContinue(false)
+            setIsUserWinThenContinue(false);
         }
         // after clicking any of the options,
         // show a next button to go to the other questions
@@ -99,8 +96,6 @@ function useCountryQuiz() {
     }
     
     function nextQuestion(e) {
-        // e.preventDefault();
-
         getRandomCountry();
         setShowNext(false);
         setIsUserWinThenContinue(false)
@@ -116,11 +111,10 @@ function useCountryQuiz() {
     }
 
     // will be run after displaying the score
-    function showOtherTypeOfQuestion(e) {
+    function tryAgain(e) {
         e.preventDefault();
-
         getRandomCountry();
-        // setAskOtherTypeOfQuestion(prevState => !prevState)
+        
         setIsUserWinThenContinue(false)
         setShowNext(false);
         // reset the score into 0
@@ -142,7 +136,6 @@ function useCountryQuiz() {
     }
 
     function handleResult() {
-        
         if(isUserWinThenContinue) {
             // if user's anwer is correct, continue asking an other question 
             nextQuestion();
@@ -164,7 +157,7 @@ function useCountryQuiz() {
         nextQuestion,
         Winner,
         goodAnswer,
-        showOtherTypeOfQuestion,
+        tryAgain,
         checkWin,
         randomNumber,
         handleResult];
