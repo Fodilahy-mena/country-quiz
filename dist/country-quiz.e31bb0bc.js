@@ -34072,7 +34072,9 @@ function CountryQuiz() {
     value: randomOptions[0]
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "A"
-  }), /*#__PURE__*/_react.default.createElement("span", null, randomOptions[0]), /*#__PURE__*/_react.default.createElement("span", {
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "btn_content"
+  }, randomOptions[0]), /*#__PURE__*/_react.default.createElement("span", {
     className: "after--icon"
   })), randomOptions[1] && /*#__PURE__*/_react.default.createElement("button", {
     disabled: showNext,
@@ -34080,7 +34082,9 @@ function CountryQuiz() {
     value: randomOptions[1]
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "B"
-  }), /*#__PURE__*/_react.default.createElement("span", null, randomOptions[1]), /*#__PURE__*/_react.default.createElement("span", {
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "btn_content"
+  }, randomOptions[1]), /*#__PURE__*/_react.default.createElement("span", {
     className: "after--icon"
   })), randomOptions[2] && /*#__PURE__*/_react.default.createElement("button", {
     disabled: showNext,
@@ -34088,7 +34092,9 @@ function CountryQuiz() {
     value: randomOptions[2]
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "C"
-  }), /*#__PURE__*/_react.default.createElement("span", null, randomOptions[2]), /*#__PURE__*/_react.default.createElement("span", {
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "btn_content"
+  }, randomOptions[2]), /*#__PURE__*/_react.default.createElement("span", {
     className: "after--icon"
   })), randomOptions[3] && /*#__PURE__*/_react.default.createElement("button", {
     disabled: showNext,
@@ -34096,7 +34102,9 @@ function CountryQuiz() {
     value: randomOptions[3]
   }, /*#__PURE__*/_react.default.createElement("span", {
     className: "D"
-  }), /*#__PURE__*/_react.default.createElement("span", null, randomOptions[3]), /*#__PURE__*/_react.default.createElement("span", {
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "btn_content"
+  }, randomOptions[3]), /*#__PURE__*/_react.default.createElement("span", {
     className: "after--icon"
   }))), showNext ? /*#__PURE__*/_react.default.createElement("button", {
     className: "next--btn",
@@ -34177,7 +34185,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49208" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55462" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

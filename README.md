@@ -1,18 +1,18 @@
 # Country Quiz
 
-Challenge: Create a country quiz app using an API, and use React to handle the frontend. Don’t look at the existing solution. Fulfill user stories below:
+Challenge: Create a country quiz app using an API, and use React to handle the frontend. Without looking at the existing solution. Fulfill user stories below:
 
 ![image](./assets/quiz1.png)
 ![image](./assets/quiz2.png)
 ![image](./assets/quiz3.png)
 ![image](./assets/quiz4.png)
 
--   User story: I can see at least 2 types of question: a city is the capital of.. or a flag belong to country..
--   User story: I can see select an answer
--   User story: I can see if my answer is correct or incorrect
--   User story: When I answer correctly, I can move on to the next question
--   User story: When I answer incorrectly, I can see my results and try again
--   User story: I can try again
+-   User story: User can see at least 2 types of question: a city is the capital of.. or a flag belong to country..
+-   User story: User can see select an answer
+-   User story: User can see if our answer is correct or incorrect
+-   User story: When User answers correctly, he can move on to the next question
+-   User story: When User answers incorrectly, he can see my results and try again
+-   User story: User can try again
 
 **Icon**: https://google.github.io/material-design-icons/
 
@@ -22,13 +22,6 @@ Challenge: Create a country quiz app using an API, and use React to handle the f
 
 **Live app** : https://country-quiz-app.netlify.app/
 
-As long as you fulfill all the user stories, you can give your personal touches by adding transition, using your own images, changing colors, or even creating your own layout,...
-
-Once you completed, submit your solutions by providing URLs for both GitHub repository and live app on Netlify and explain briefly what you have done.
-
-For the custom domain url you'll enter in netlify, please use the following naming convention : **country-quiz-_YOUR_FIRSTNAME_.netlify.app** (replace YOUR_FIRSTNAME by your firstname)
-
-Good luck everybody!
 
 Template for your readme :
 
@@ -80,11 +73,6 @@ I tried to not display the results stright away even thought the answer is incor
 when they select the wrrong option.
 
 Overall, it is a very good project, especially since it is a little bit challeging.
-
--   Where can I see your demo?
--   What was your experience?
--   What have you learned/improved?
--   Your wisdom? :)
 
 ### Built With
 

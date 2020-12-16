@@ -48,10 +48,10 @@ function CountryQuiz() {
                         
                         <form onClick={e => checkWin(e)}>
                             {/* <button disabled={showNext} className={`btn`} value={randomOptions[0]}><span className="A"></span><span>{randomOptions[0]}</span><span className="after--icon"></span></button> */}
-                            {randomOptions[0] && <button disabled={showNext} className={`btn`} value={randomOptions[0]}><span className="A"></span><span>{randomOptions[0]}</span><span className="after--icon"></span></button>}
-                            {randomOptions[1] && <button disabled={showNext} className={`btn`} value={randomOptions[1]}><span className="B"></span><span>{randomOptions[1]}</span><span className="after--icon"></span></button>}
-                            {randomOptions[2] && <button disabled={showNext} className={`btn`} value={randomOptions[2]}><span className="C"></span><span>{randomOptions[2]}</span><span className="after--icon"></span></button>}
-                            {randomOptions[3] && <button disabled={showNext} className={`btn`} value={randomOptions[3]}><span className="D"></span><span>{randomOptions[3]}</span><span className="after--icon"></span></button>}
+                            {randomOptions[0] && <button disabled={showNext} className={`btn`} value={randomOptions[0]}><span className="A"></span><span className="btn_content">{randomOptions[0]}</span><span className="after--icon"></span></button>}
+                            {randomOptions[1] && <button disabled={showNext} className={`btn`} value={randomOptions[1]}><span className="B"></span><span className="btn_content">{randomOptions[1]}</span><span className="after--icon"></span></button>}
+                            {randomOptions[2] && <button disabled={showNext} className={`btn`} value={randomOptions[2]}><span className="C"></span><span className="btn_content">{randomOptions[2]}</span><span className="after--icon"></span></button>}
+                            {randomOptions[3] && <button disabled={showNext} className={`btn`} value={randomOptions[3]}><span className="D"></span><span className="btn_content">{randomOptions[3]}</span><span className="after--icon"></span></button>}
                         </form>
                         {showNext ? (
                             <button className="next--btn" onClick={handleResult}>Next</button>

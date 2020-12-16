@@ -4,6 +4,8 @@
 body {
     background-image: url(./background.png);
     background-size: cover;
+    margin: 0;
+    margin-bottom: 260px;
 }
 body > header, footer {
     max-width: 464px;
@@ -38,13 +40,27 @@ h1 {
     color: #F2F2F2;
 }
 
-h2 {
+.winner h2 {
     font-family: Poppins;
     font-style: normal;
     font-weight: bold;
-    font-size: 24px;
-    line-height: 36px;
-    color: #2F527B;
+    font-size: 48px;
+    line-height: 72px;
+    /* identical to box height */
+    color: #1D355D;
+
+}
+.logo ~ h2 {
+    font-family: Poppins;
+font-style: normal;
+font-weight: bold;
+font-size: 24px;
+line-height: 36px;
+/* identical to box height */
+
+
+color: #2F527B;
+
 }
 form {
     display: flex;
@@ -67,8 +83,9 @@ form {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     border: 2px solid rgba(96, 102, 208, 0.7);
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
 }
 .btn:hover {
     background: #F9A826;
@@ -76,6 +93,10 @@ form {
     border: 2px solid #F9A826;
 }
 
+.btn_content {
+    margin-left: 15%;
+    margin-right: auto;
+}
 .true--answer {
     background: #60BF88;
     color: white;
@@ -130,6 +151,7 @@ p {
     font-weight: normal;
     font-size: 18px;
     line-height: 27px;
+
     color: #1D355D;
 }
 
@@ -138,7 +160,7 @@ p > strong {
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
-    line-height: 36px;
+    line-height: 40px;
     color: #66eb78;
 }
 
@@ -175,18 +197,6 @@ p > strong {
     bottom: 3rem;
 }
 
-footer > p {
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    /* identical to box height */
-    color: #F2F2F2;
-}
-footer {
-    margin-top: 2rem;
-}
 .question1 {
     margin-top: -76px;
 }
