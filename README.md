@@ -27,15 +27,15 @@ Template for your readme :
 
 <!-- Please update value in the {}  -->
 
-<h1 align="center">{Your project name}</h1>
+<h1 align="center">{Country quiz}</h1>
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://j-emilien-country-quiz-app.netlify.app/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://github.com/Fodilahy-mena/country-quiz">
       Solution
     </a>
   </h3>
@@ -107,6 +107,6 @@ $ npm start
 
 ## Contact
 
--   Website [your-website.com](https://{your-web-site-link})
+<!-- -   Website [your-website.com](https://{your-web-site-link}) -->
 -   GitHub [@Fodilahy-mana](https://github.com/Fodilahy-mena)
--   Twitter [@your-twitter](https://{twitter.com/your-username})
+<!-- -   Twitter [@your-twitter](https://{twitter.com/your-username}) -->
