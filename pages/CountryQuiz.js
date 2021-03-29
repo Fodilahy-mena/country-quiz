@@ -19,15 +19,15 @@ function CountryQuiz() {
 
         function RandomizeTwoQuestions() {
             return (
-                <div>
+                <div className="questions">
                     {randomNumber % 2 == 0 
                     ?
-                    <div>
+                    <div className="question_country--name">
                         <img className="logo" width="162px" src={Logo}/>
                         <h2 className="question1">{randomCountry.capital} is the capital of?</h2> 
                     </div>
                     : 
-                    <div>
+                    <div className="question_flag">
                         <img className="logo" width="162px" src={Logo}/>
                         <img className="flag" width="84px" src={randomCountry.flag} alt="Country flag" /> 
                         <h2 className="question2">Which country does this flag belong to?</h2>

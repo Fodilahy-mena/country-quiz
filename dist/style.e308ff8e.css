@@ -19,10 +19,13 @@ button {
     cursor: pointer;
     outline: none;
 }
-#quiz {
+
+main {
     max-width: 464px;
     min-width: 464px;
     margin: auto;
+}
+#quiz {
     background: #FFFFFF;
     border-radius: 24px;
 }
@@ -40,6 +43,7 @@ h1 {
     color: #F2F2F2;
 }
 
+
 .winner h2 {
     font-family: Poppins;
     font-style: normal;
@@ -52,14 +56,13 @@ h1 {
 }
 .logo ~ h2 {
     font-family: Poppins;
-font-style: normal;
-font-weight: bold;
-font-size: 24px;
-line-height: 36px;
-/* identical to box height */
-
-
-color: #2F527B;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #2F527B;
 
 }
 form {
@@ -70,8 +73,6 @@ form {
 .btn {
     background-color: white;
     text-align: left;
-    padding-left: 17px;
-    padding-right: 17px;
     color: rgba(96, 102, 208, 0.8);
     border-radius: 12px;
     font-family: Poppins;
@@ -79,9 +80,11 @@ form {
     font-weight: 500;
     font-size: 18px;
     line-height: 27px;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    padding-top: 15px;
+    padding-bottom: 14px;
+    margin-bottom: 31px;
+    padding-left: 19px;
+    padding-right: 18px;
     border: 2px solid rgba(96, 102, 208, 0.7);
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -106,9 +109,14 @@ form {
     background: #60BF88;
     border: 2px solid #60BF88;
 }
+.after--icon {
+    height: 20px;
+    width: 20px;
+}
 .true--answer > .after--icon::after {
     content: url(/Checked.a2f7abe6.svg);
-    width: 16px;
+    height: 20px;
+    width: 20px;
     position: relative;
 }
 
@@ -214,6 +222,86 @@ p > strong {
 }
 .D::after {
     content: "D";
+}
+
+@media (max-width: 768px) {
+    body > header h1 {
+        font-size: 32px;
+    }
+    body > header, main {
+        max-width: 90%;
+        min-width: 90%;
+        margin: auto;
+    }
+    #quiz > div {
+        padding: unset;
+    }
+    #quiz > div > div {
+        padding: unset;
+        max-width: 90%;
+        min-width: 90%;
+        margin: auto;
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+    .question_flag {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logo {
+        position: relative;
+        left: unset;
+        bottom: unset;
+        align-self: flex-end;
+        width: 120px;
+    }
+    
+    .flag {
+        right: unset;
+        position: relative;
+        bottom: unset;
+    }
+    .winner {
+        margin-left: unset;
+        margin-right: unset;
+        text-align: center;
+    }
+    .winner--img {
+        display: flex;  
+        width: 114px;
+        margin: auto;
+    }
+
+    .winner h2 {
+        font-size: 36px;
+    }
+
+    .question_country--name {
+        display: flex;
+        flex-direction: column;
+    }
+    .logo ~ h2 {
+        font-size: 20px;
+    }
+    .question1, .question2 {
+        margin-top: unset;
+    }
+
+    .btn {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    .next--btn {
+        font-size: 16px;
+    }
+
+    .try--btn {
+        font-size: 16px;
+        width: 113px;
+        padding: 1rem;
+    }
+
 }
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */

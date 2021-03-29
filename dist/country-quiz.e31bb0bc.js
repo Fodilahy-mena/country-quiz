@@ -34044,13 +34044,19 @@ function CountryQuiz() {
   Logo, randomCountry, showNext, randomOptions, nextQuestion, Winner, goodAnswer, tryAgain, checkWin, randomNumber, handleResult] = (0, _useCountryQuiz.default)();
 
   function RandomizeTwoQuestions() {
-    return /*#__PURE__*/_react.default.createElement("div", null, randomNumber % 2 == 0 ? /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "questions"
+    }, randomNumber % 2 == 0 ? /*#__PURE__*/_react.default.createElement("div", {
+      className: "question_country--name"
+    }, /*#__PURE__*/_react.default.createElement("img", {
       className: "logo",
       width: "162px",
       src: Logo
     }), /*#__PURE__*/_react.default.createElement("h2", {
       className: "question1"
-    }, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("img", {
+    }, randomCountry.capital, " is the capital of?")) : /*#__PURE__*/_react.default.createElement("div", {
+      className: "question_flag"
+    }, /*#__PURE__*/_react.default.createElement("img", {
       className: "logo",
       width: "162px",
       src: Logo
@@ -34185,7 +34191,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55462" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49590" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
