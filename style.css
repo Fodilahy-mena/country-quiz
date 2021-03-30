@@ -7,11 +7,7 @@ body {
     margin: 0;
     margin-bottom: 260px;
 }
-body > header, footer {
-    max-width: 464px;
-    min-width: 464px;
-    margin: auto;
-}
+
 button:disabled {
     cursor: not-allowed;
 }
@@ -96,19 +92,22 @@ form {
     border: 2px solid #F9A826;
 }
 
+.btn:disabled:hover {
+    background-color: white;
+    color: rgba(96, 102, 208, 0.8);
+    border: 2px solid rgba(96, 102, 208, 0.7);
+}
+
 .btn_content {
     margin-left: 15%;
     margin-right: auto;
 }
-.true--answer {
+.btn.true--answer, .btn.true--answer:disabled:hover {
     background: #60BF88;
     color: white;
     border: 2px solid #60BF88;
 }
-.true--answer:hover {
-    background: #60BF88;
-    border: 2px solid #60BF88;
-}
+
 .after--icon {
     height: 20px;
     width: 20px;
@@ -120,11 +119,12 @@ form {
     position: relative;
 }
 
-.wrong--answer {
+.wrong--answer, .btn.wrong--answer:disabled:hover {
     background: #EA8282;
     color: white;
     border: 2px solid #EA8282;
 }
+
 
 .wrong--answer > .after--icon::after {
     content: url(./Crossed.svg);
@@ -302,4 +302,17 @@ p > strong {
         padding: 1rem;
     }
 
+}
+
+@media (min-width: 1440px) {
+    body {
+        overflow: hidden; /* Hide scrollbars */
+      }
+    main {
+        /* margin-top: 108px;
+        margin-bottom: 236px; */
+
+        margin-top: 14vh;
+        margin-bottom: 20vh;
+    }
 }
